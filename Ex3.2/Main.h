@@ -69,27 +69,47 @@ void RenderARegularTetrahedron() {
 	glTranslatef(-1.5, -1.3, -6);
 	glRotatef(fRotateTri, 0, 1, 0);
 	float RegularTetrahedronPoints[4][3] = {
-		{0,0,0},
-		{1 / 2,0,-std::sqrt(3) / 2},
-		{-1 / 2,0,-std::sqrt(3) / 2},
-		{0,std::sqrt(6) / 3,-std::sqrt(3) / 3},
+		{0,0,std::sqrt(3) / 3},
+
+		{1. / 2,0,-std::sqrt(3) / 2 + std::sqrt(3) / 3},
+		{-1. / 2,0,-std::sqrt(3) / 2 + std::sqrt(3) / 3},
+		{0,std::sqrt(6) / 3,0}
 	};
 	glBegin(GL_TRIANGLES);
-	/*glVertex3fv(RegularTetrahedronPoints[0]);
+	glColor3f(0.2f, 0.2f, 0.2f);
+	glVertex3fv(RegularTetrahedronPoints[0]);
 	glVertex3fv(RegularTetrahedronPoints[1]);
 	glVertex3fv(RegularTetrahedronPoints[2]);
-
+	glColor3f(0.4f, 0.4f, 0.4f);
 	glVertex3fv(RegularTetrahedronPoints[0]);
 	glVertex3fv(RegularTetrahedronPoints[1]);
 	glVertex3fv(RegularTetrahedronPoints[3]);
-
+	glColor3f(0.6f, 0.6f, 0.6f);
 	glVertex3fv(RegularTetrahedronPoints[0]);
 	glVertex3fv(RegularTetrahedronPoints[2]);
 	glVertex3fv(RegularTetrahedronPoints[3]);
-*/
+	glColor3f(0.8f, 0.8f, 0.8f);
 	glVertex3fv(RegularTetrahedronPoints[1]);
 	glVertex3fv(RegularTetrahedronPoints[2]);
 	glVertex3fv(RegularTetrahedronPoints[3]);
+	glEnd();
+}
+void RenderACube() {
+	glLoadIdentity();
+	glTranslatef(1.5, -1.3, -6);
+	glRotatef(fRotateTri, 0, 1, 0);
+	float CubePoints[8][3] = {
+		{0.5,0,0.5},
+		{-0.5,0,0.5},
+		{-0.5,0,-0.5},
+		{0.5,0,-0.5},
+		{0.5,1,0.5},
+		{-0.5,1,0.5},
+		{-0.5,1,-0.5},
+		{0.5,1,-0.5}
+	};
+	glBegin(GL_QUADS);
+		
 	glEnd();
 }
 void RenderScene()
@@ -100,6 +120,7 @@ void RenderScene()
 	RenderATriangle();
 
 	RenderARegularTetrahedron();
+	RenderACube();
 	glutSwapBuffers();
 
 }
