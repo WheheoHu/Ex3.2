@@ -29,7 +29,7 @@ void Init()
 {
 	glEnable(GL_DEPTH_TEST); //启用深度测试
 
-	glClearColor(0.0f, 0.0f, 0.0f, 0.8f); //背景为黑色
+	glClearColor(1.f, 1.f, 1.f, 0.8f); //背景为黑色
 }
 
 
