@@ -97,19 +97,33 @@ void RenderARegularTetrahedron() {
 void RenderACube() {
 	glLoadIdentity();
 	glTranslatef(1.5, -1.3, -6);
-	glRotatef(fRotateTri, 0, 1, 0);
+	glRotatef(fRotateQuad,1, 0, 0);
 	float CubePoints[8][3] = {
-		{0.5,0,0.5},
-		{-0.5,0,0.5},
-		{-0.5,0,-0.5},
-		{0.5,0,-0.5},
-		{0.5,1,0.5},
-		{-0.5,1,0.5},
-		{-0.5,1,-0.5},
-		{0.5,1,-0.5}
+		{0.5,-0.5,0.5},
+		{-0.5,-0.5,0.5},
+		{-0.5,-0.5,-0.5},
+		{0.5,-0.5,-0.5},
+		{0.5,0.5,0.5},
+		{-0.5,0.5,0.5},
+		{-0.5,0.5,-0.5},
+		{0.5,0.5,-0.5}
+	};
+	int facevec[6][4] = {
+		{1,2,3,4},
+		{5,6,7,8},
+		{1,5,8,4},
+		{2,3,7,6},
+		{1,2,6,5},
+		{3,4,7,8},
 	};
 	glBegin(GL_QUADS);
-		
+	for (int i = 0; i < 6; i++)
+	{
+		for (int pointvec = 0; pointvec < 4; pointvec++)
+		{
+			glVertex3fv(CubePoints[facevec[i][pointvec]-1]);
+		}
+	}
 	glEnd();
 }
 void RenderScene()
