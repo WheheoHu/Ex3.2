@@ -34,7 +34,7 @@ void Init()
 void RenderAQuadrilateral() {
 	glLoadIdentity();
 	glTranslatef(1.5, 0, -6);
-	glRotatef(fRotateTri, 1, 0, 0);
+	glRotatef(fRotateQuad, 1, 0, 0);
 	glBegin(GL_QUADS);
 	glColor3f(1.0f, 0.0f, 0.0f);
 	glVertex3f(-1.0f, 1.0f, 0.0f);
@@ -52,7 +52,7 @@ void RenderATriangle()
 {
 	glLoadIdentity();
 	glTranslatef(-1.5f, 0.0f, -6.0f);
-	glRotatef(fRotateQuad, 0.0f, 1.0f, 0.0f);
+	glRotatef(fRotateTri, 0.0f, 1.0f, 0.0f);
 	glBegin(GL_TRIANGLES);
 	glColor3f(1.0f, 0.0f, 0.0f);
 	glVertex3f(0.0f, 1.0f, 0.0f);
@@ -77,12 +77,16 @@ void RenderScene()
 
 void myIdle(void) //在空闲时调用，达到动画效果
 {
-	fRotateTri += 0.005f;
-	if (fRotateTri>2*PI)
+	fRotateTri += 0.05f;
+	if (fRotateTri>360)
 	{
 		fRotateTri = 0;
 	}
 	fRotateQuad += 0.05f;
+	if (fRotateQuad > 360)
+	{
+		fRotateQuad = 0;
+	}
 //	std::cout << fRotateTri <<std:: endl;
 	RenderScene();
 }
