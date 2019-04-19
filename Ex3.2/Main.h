@@ -1,5 +1,6 @@
 #pragma once
 #include<iostream>
+#include<cmath>
 
 constexpr double PI = 3.141592653;
 
@@ -31,9 +32,25 @@ void Init()
 	glClearColor(0.0f, 0.0f, 0.0f, 0.8f); //背景为黑色
 }
 
+
+
+void RenderATriangle()
+{
+	glLoadIdentity();
+	glTranslatef(-1.5f, 1.3f, -6.0f);
+	glRotatef(fRotateTri, 0.0f, 1.0f, 0.0f);
+	glBegin(GL_TRIANGLES);
+	glColor3f(1.0f, 0.0f, 0.0f);
+	glVertex3f(0.0f, 1.0f, 0.0f);
+	glColor3f(0.0f, 1.0f, 0.0f);
+	glVertex3f(-1.0f, -1.0f, 0.0f);
+	glColor3f(0.0f, 0.0f, 1.0f);
+	glVertex3f(1.0f, -1.0f, 0.0f);
+	glEnd();
+}
 void RenderAQuadrilateral() {
 	glLoadIdentity();
-	glTranslatef(1.5, 0, -6);
+	glTranslatef(1.5, 1.3, -6);
 	glRotatef(fRotateQuad, 1, 0, 0);
 	glBegin(GL_QUADS);
 	glColor3f(1.0f, 0.0f, 0.0f);
@@ -45,32 +62,44 @@ void RenderAQuadrilateral() {
 	glColor3f(1.0f, 1.0f, 1.0f);
 	glVertex3f(1.0f, 1.0f, 0.0f);
 	glEnd();
-	
-}
 
-void RenderATriangle()
-{
+}
+void RenderARegularTetrahedron() {
 	glLoadIdentity();
-	glTranslatef(-1.5f, 0.0f, -6.0f);
-	glRotatef(fRotateTri, 0.0f, 1.0f, 0.0f);
+	glTranslatef(-1.5, -1.3, -6);
+	glRotatef(fRotateTri, 0, 1, 0);
+	float RegularTetrahedronPoints[4][3] = {
+		{0,0,0},
+		{1 / 2,0,-std::sqrt(3) / 2},
+		{-1 / 2,0,-std::sqrt(3) / 2},
+		{0,std::sqrt(6) / 3,-std::sqrt(3) / 3},
+	};
 	glBegin(GL_TRIANGLES);
-	glColor3f(1.0f, 0.0f, 0.0f);
-	glVertex3f(0.0f, 1.0f, 0.0f);
-	glColor3f(0.0f, 1.0f, 0.0f);
-	glVertex3f(-1.0f, -1.0f, 0.0f);
-	glColor3f(0.0f, 0.0f, 1.0f);
-	glVertex3f(1.0f, -1.0f, 0.0f);
+	/*glVertex3fv(RegularTetrahedronPoints[0]);
+	glVertex3fv(RegularTetrahedronPoints[1]);
+	glVertex3fv(RegularTetrahedronPoints[2]);
+
+	glVertex3fv(RegularTetrahedronPoints[0]);
+	glVertex3fv(RegularTetrahedronPoints[1]);
+	glVertex3fv(RegularTetrahedronPoints[3]);
+
+	glVertex3fv(RegularTetrahedronPoints[0]);
+	glVertex3fv(RegularTetrahedronPoints[2]);
+	glVertex3fv(RegularTetrahedronPoints[3]);
+*/
+	glVertex3fv(RegularTetrahedronPoints[1]);
+	glVertex3fv(RegularTetrahedronPoints[2]);
+	glVertex3fv(RegularTetrahedronPoints[3]);
 	glEnd();
 }
-
 void RenderScene()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	RenderAQuadrilateral();
 	RenderATriangle();
-	
 
+	RenderARegularTetrahedron();
 	glutSwapBuffers();
 
 }
@@ -78,7 +107,7 @@ void RenderScene()
 void myIdle(void) //在空闲时调用，达到动画效果
 {
 	fRotateTri += 0.05f;
-	if (fRotateTri>360)
+	if (fRotateTri > 360)
 	{
 		fRotateTri = 0;
 	}
@@ -87,6 +116,7 @@ void myIdle(void) //在空闲时调用，达到动画效果
 	{
 		fRotateQuad = 0;
 	}
-//	std::cout << fRotateTri <<std:: endl;
+	/*std::cout << fRotateTri <<std:: endl;
+	std::cout << fRotateQuad << std::endl;*/
 	RenderScene();
 }
